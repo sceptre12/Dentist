@@ -32,7 +32,6 @@
     // Gulp image compression task
     gulp.task('images', function() {
         return gulp.src('img/**')
-            .pipe(chmod(755))
             .pipe(imagemin({
                 optimizationLevel: 5,
                 progressive: true,
