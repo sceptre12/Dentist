@@ -24,7 +24,7 @@
    
     // Js Dependencies
     gulp.task('dependencies', function() {
-        return gulp.src(['bower_components/jquery/dist/jquery.js', 'bower_components/retina.js/dist/retina.js','app/main/js/jquery.fancybox.pack.js', 'bower_components/bootstrap/dist/js/bootstrap.min.js','app/main/js/scripts-min.js','app/main/js/jquery.flexslider-min.js','bower_components/classie/classie.js','bower_components/waypoints/lib/jquery.waypoints.min.js'])
+        return gulp.src(['bower_components/jquery/dist/jquery.js','app/jquery.fancybox.pack.js', 'bower_components/bootstrap/dist/js/bootstrap.min.js','app/scripts-min.js','app/jquery.flexslider-min.js','bower_components/classie/classie.js','bower_components/waypoints/lib/jquery.waypoints.min.js'])
             .pipe(concat('dependencies.min.js'))
             .pipe(gulp.dest('public/js'))
     });
@@ -37,7 +37,7 @@
 
     //Destroys all changes and makes new ones
     gulp.task('clean', function(callback) {
-        del(['build/*'], callback)
+        del(['public/*'], callback)
             //         Causes an error too many call back requests
             //         cache.clearAll(callback);
     });
