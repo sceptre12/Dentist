@@ -21,33 +21,11 @@
 
     // Main App js
 
-    gulp.task('appjs', ['dependencies'], function() {
-        return gulp.src(['app/main/js/config.js'	])
-            .pipe(concat('main.js'))
-            .pipe(gulp.dest('public/js'))
-            .pipe(rename({
-                suffix: '.min'
-            }))
-            .pipe(uglify().on('error', function(e) {
-                // ouput errors in js code to the console
-                console.log('\x07', e.message);
-                return this.end();
-            }))
-            .pipe(gulp.dest('public/js'))
-    });
-
-
+   
     // Js Dependencies
     gulp.task('dependencies', function() {
-        return gulp.src(['bower_components/jquery/dist/jquery.js', 'bower_components/angular/angular.js', 'bower_components/angular-ui-router/release/angular-ui-router.js', 'bower_components/angular-bootstrap/ui-bootstrap-tpls.js', 'bower_components/retina.js/dist/retina.js','app/main/js/jquery.fancybox.pack.js', 'bower_components/bootstrap/dist/js/bootstrap.min.js','app/main/js/scripts-min.js','app/main/js/jquery.flexslider-min.js','bower_components/classie/classie.js','bower_components/waypoints/lib/jquery.waypoints.min.js'])
+        return gulp.src(['bower_components/jquery/dist/jquery.js', 'bower_components/retina.js/dist/retina.js','app/main/js/jquery.fancybox.pack.js', 'bower_components/bootstrap/dist/js/bootstrap.min.js','app/main/js/scripts-min.js','app/main/js/jquery.flexslider-min.js','bower_components/classie/classie.js','bower_components/waypoints/lib/jquery.waypoints.min.js'])
             .pipe(concat('dependencies.min.js'))
-            .pipe(gulp.dest('public/js'))
-    });
-
-    // Combination of Dependencies and App js 
-    gulp.task('depandapp', ['dependencies', 'appjs'], function() {
-        return gulp.src(['public/js/dependencies.min.js', 'public/js/main.min.js'])
-            .pipe(concat('build.min.js'))
             .pipe(gulp.dest('public/js'))
     });
 
@@ -76,9 +54,6 @@
         // Watch .scss files
         gulp.watch('styles/**/*.css', ['stylesdep']);
 
-        // Watch .js files        
-        gulp.watch('app/**/*.js', ['depandapp']);
-
         // Watch image files
         gulp.watch('img/**/*', ['images']);
 
@@ -86,11 +61,11 @@
         livereload.listen();
 
         // Watch any files in their folder and reload on change
-        gulp.watch(['styles/css/**', 'app/**', 'img/**/*']).on('change', livereload.changed);
+        gulp.watch(['styles/css/**', 'img/**/*']).on('change', livereload.changed);
 
     });
     // Default run of gulp
-    gulp.task('default', ['clean', 'depandapp'], function() {
+    gulp.task('default', ['clean', 'dependencies'], function() {
         gulp.start('stylesdep', 'images', 'watch');
     });
 
